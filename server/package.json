@@ -1,0 +1,10 @@
+{
+  "name": "tic-tac-vue-server",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
