@@ -6,9 +6,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "socket.io-client": "^3.1.0",
     "vue": "^3.0.5",
-    "vue-socket.io-extended": "^4.0.6",
     "vuex": "^4.0.0-rc.2"
   },
   "devDependencies": {

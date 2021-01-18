@@ -5,7 +5,7 @@
       <span v-else>{{ player }}'s turn</span>
     </div>
 
-    <div class="grid grid-cols-3 gap-5">
+    <div class="mt-5 grid grid-cols-3 gap-5">
       <Cell
         v-for="(cell, index) in board"
         :key="`cell-${index}`"
