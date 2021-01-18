@@ -3,7 +3,6 @@ import { createStore } from 'vuex'
 import App from './App.vue'
 import './index.css'
 
-// Create a new store instance.
 const store = createStore({
   state () {
     return {
