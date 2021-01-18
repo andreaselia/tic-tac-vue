@@ -1,17 +1,19 @@
 <template>
   <div>
-    {{ count }}
-    <Board />
+    <Welcome v-if="state === 'welcome'" />
+    <Lobby v-else-if="state === 'lobby'" />
+    <Board v-else-if="state === 'play'" />
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
 import { useStore } from 'vuex'
 
+import Welcome from './components/Welcome.vue'
+import Lobby from './components/Lobby.vue'
 import Board from './components/Board.vue'
 
 const store = useStore()
 
-const count = computed(() => store.state.count)
+console.log(store)
 </script>

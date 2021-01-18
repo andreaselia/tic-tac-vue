@@ -1,14 +1,14 @@
-import { createStore } from 'vuex'
+import { createStore, createLogger } from 'vuex'
+import counter from './modules/counter'
+import game from './modules/game'
 
-export const store = createStore({
-  state () {
-    return {
-      count: 0
-    }
+const debug = process.env.NODE_ENV !== 'production'
+
+export default createStore({
+  modules: {
+    counter,
+    game
   },
-  mutations: {
-    increment (state) {
-      state.count++
-    }
-  }
+  strict: debug,
+  plugins: debug ? [createLogger()] : []
 })
