@@ -1,19 +1,31 @@
 <template>
   <div>
-    <Welcome v-if="state === 'welcome'" />
-    <Lobby v-else-if="state === 'lobby'" />
-    <Board v-else-if="state === 'play'" />
+    <Welcome v-if="view === 'welcome'" />
+    <Lobby v-else-if="view === 'lobby'" />
+    <Board v-else-if="view === 'play'" />
   </div>
 </template>
 
-<script setup>
+<script>
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 import Welcome from './components/Welcome.vue'
 import Lobby from './components/Lobby.vue'
 import Board from './components/Board.vue'
 
-const store = useStore()
+export default {
+  components: {
+    Welcome,
+    Lobby,
+    Board
+  },
+  setup () {
+    const store = useStore()
 
-console.log(store)
+    return {
+      view: computed(() => store.state.app.view),
+    }
+  }
+}
 </script>

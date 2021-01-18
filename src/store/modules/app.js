@@ -1,6 +1,6 @@
 const state = {
-  cells: new Array(9).fill(null),
-  turn: 'X'
+  view: 'welcome',
+  connected: false
 }
 
 const getters = {}

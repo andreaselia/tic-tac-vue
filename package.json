@@ -1,12 +1,16 @@
 {
   "name": "tic-tac-vue",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.1.0",
+    "socket.io-client": "^3.1.0",
     "vue": "^3.0.5",
+    "vue-3-socket.io": "^1.0.2",
     "vuex": "^4.0.0-rc.2"
   },
   "devDependencies": {
