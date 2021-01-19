@@ -47,30 +47,29 @@ io.on('connection', (socket) => {
   })
 
   socket.on('markCell', (data) => {
-    console.log('markCell', data)
-
     if (!players[socket.id].opponent) {
       return
     }
 
-    data.player = data.player === 'X' ? 'O' : 'X'
-
-    socket.emit('markCell', data)
-
     const opponent = players[players[socket.id].opponent]
     opponent.socket.emit('markCell', data)
+
+    const winner = calculateWinner(data.board)
+
+    if (winner) {
+      socket.emit('setWinner', winner)
+      opponent.socket.emit('setWinner', winner)
+    }
   })
 
   socket.on('leaveLobby', () => {
-    console.log('leaveLobby')
-
     delete players[socket.id]
 
     unmatchedPlayer = null
   })
 
   socket.on('disconnect', () => {
-    console.log('a user disconnected')
+    delete players[socket.id]
   })
 })
 
@@ -79,11 +78,11 @@ http.listen(PORT, () => {
 })
 
 function calculateWinner (board) {
-  if (board.value.every((value) => value)) {
-    return 'no winners here'
+  if (board.every((value) => value)) {
+    return null
   }
 
-  const rows = [
+  const winStates = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -94,11 +93,11 @@ function calculateWinner (board) {
     [2, 4, 6],
   ]
 
-  for (let i = 0; i < rows.length; i++) {
-    const [x, y, z] = rows[i]
+  for (let i = 0; i < winStates.length; i++) {
+    const [x, y, z] = winStates[i]
 
-    if (board.value[x] && board.value[x] === board.value[y] && board.value[x] === board.value[z]) {
-      return `${board.value[x]} wins`
+    if (board[x] && board[x] === board[y] && board[x] === board[z]) {
+      return board[x]
     }
   }
 

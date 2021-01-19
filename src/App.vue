@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
     <Welcome v-if="view === 'welcome'" />
     <Lobby v-else-if="view === 'lobby'" />
     <Board v-else-if="view === 'game'" />
@@ -25,14 +25,22 @@ export default {
     const store = useStore()
 
     socket.on('startGame', (data) => {
-      console.log('startGame', data)
-
       store.commit('app/setView', 'game')
+      store.commit('game/setMe', data.turn)
       store.commit('game/setTurn', data.turn)
     })
 
+    socket.on('markCell', (data) => {
+      store.dispatch('game/setBoard', data.board)
+      store.dispatch('game/setTurn', data.turn)
+    })
+
+    socket.on('setWinner', (winner) => {
+      store.dispatch('game/setWinner', winner)
+    })
+
     return {
-      view: computed(() => store.state.app.view),
+      view: computed(() => store.state.app.view)
     }
   }
 }
