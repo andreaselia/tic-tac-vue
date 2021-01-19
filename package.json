@@ -1,6 +1,7 @@
 {
   "name": "tic-tac-vue",
   "version": "1.0.0",
+  "main": "server.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
