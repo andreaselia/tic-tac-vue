@@ -2,12 +2,12 @@
   <div>
     <Welcome v-if="view === 'welcome'" />
     <Lobby v-else-if="view === 'lobby'" />
-    <Board v-else-if="view === 'play'" />
+    <Board v-else-if="view === 'game'" />
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 import { useStore } from 'vuex'
 
 import Welcome from './components/Welcome.vue'
@@ -21,7 +21,15 @@ export default {
     Board
   },
   setup () {
+    const socket = inject('socket')
     const store = useStore()
+
+    socket.on('startGame', (data) => {
+      console.log('startGame', data)
+
+      store.commit('app/setView', 'game')
+      store.commit('game/setTurn', data.turn)
+    })
 
     return {
       view: computed(() => store.state.app.view),

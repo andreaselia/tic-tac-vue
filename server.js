@@ -2,8 +2,8 @@ const app = require('express')()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 const PORT = 1992
-const players = {}
-const unmatched = null
+let players = {}
+let unmatchedPlayer = null
 
 app.get('/', (req, res) => {
     res.send('<h1>Tic Tac Vue</h1>')
@@ -16,19 +16,34 @@ io.on('connection', (socket) => {
     console.log('joinLobby')
 
     players[socket.id] = {
-      opponent: unmatched,
-      type: 'X',
+      opponent: unmatchedPlayer,
+      turn: 'X',
       socket: socket
     }
 
-    if (unmatched) {
-      players[socket.id].symbol = 'O'
-      players[unmatched].opponent = socket.id
+    if (unmatchedPlayer) {
+      players[socket.id].turn = 'O'
+      players[unmatchedPlayer].opponent = socket.id
 
-      unmatched = null
+      unmatchedPlayer = null
     } else {
-      unmatched = socket.id
+      unmatchedPlayer = socket.id
     }
+
+    if (!players[socket.id].opponent) {
+      return
+    }
+
+    console.log('startGame')
+
+    socket.emit('startGame', {
+      turn: players[socket.id].turn
+    })
+
+    const opponent = players[players[socket.id].opponent]
+    opponent.socket.emit('startGame', {
+      turn: opponent.turn
+    })
   })
 
   socket.on('markCell', (data) => {
@@ -38,16 +53,20 @@ io.on('connection', (socket) => {
       return
     }
 
+    data.player = data.player === 'X' ? 'O' : 'X'
+
     socket.emit('markCell', data)
 
-    const opponent = players[players[socket.id].opponent].socket
-    opponent.emit('markCell', data)
+    const opponent = players[players[socket.id].opponent]
+    opponent.socket.emit('markCell', data)
   })
 
   socket.on('leaveLobby', () => {
     console.log('leaveLobby')
 
     delete players[socket.id]
+
+    unmatchedPlayer = null
   })
 
   socket.on('disconnect', () => {

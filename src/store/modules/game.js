@@ -1,13 +1,27 @@
 const state = {
-  cells: new Array(9).fill(null),
+  board: new Array(9).fill(null),
   turn: 'X'
 }
 
 const getters = {}
 
-const actions = {}
+const actions = {
+  setBoard (context, board) {
+    context.commit('setBoard', board)
+  },
+  setTurn (context, turn) {
+    context.commit('setTurn', turn)
+  }
+}
 
-const mutations = {}
+const mutations = {
+  setBoard (state, board) {
+    state.board = board
+  },
+  setTurn (state, turn) {
+    state.turn = turn
+  }
+}
 
 export default {
   namespaced: true,

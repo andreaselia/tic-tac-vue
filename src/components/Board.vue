@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-center">
+  <div class="bg-white p-6 text-center rounded-3xl shadow-xl sm:p-12">
     <div>
       <span v-if="calculateWinner">{{ calculateWinner }}</span>
       <span v-else>{{ player }}'s turn</span>
@@ -20,7 +20,7 @@
 
 <script>
 import Cell from './Cell.vue'
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 
 import { useBoard } from '../composables/useBoard'
