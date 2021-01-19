@@ -1,6 +1,7 @@
 const state = {
   board: new Array(9).fill(null),
-  turn: 'X'
+  turn: 'X',
+  winner: null
 }
 
 const getters = {}

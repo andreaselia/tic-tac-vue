@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white p-6 text-center rounded-3xl shadow-xl sm:p-12">
     <div>
-      <span v-if="calculateWinner">{{ calculateWinner }}</span>
+      <span v-if="winner">{{ winner }}</span>
       <span v-else>{{ player }}'s turn</span>
     </div>
 
@@ -12,7 +12,7 @@
         :label="`cell-${index}`"
         :value="cell"
         @click="markCell(index)"
-        :winner="calculateWinner"
+        :winner="winner"
       />
     </div>
   </div>
@@ -24,21 +24,22 @@ import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 
 import { useBoard } from '../composables/useBoard'
-import { useCalculateWinner } from '../composables/useCalculateWinner'
 
 export default {
   components: {
     Cell
   },
   setup() {
+    const store = useStore()
     const { board, player, markCell } = useBoard()
-    const { calculateWinner } = useCalculateWinner(board)
+
+    const winner = ref(computed(() => store.state.game.winner))
 
     return {
       board,
       player,
       markCell,
-      calculateWinner
+      winner
     }
   }
 }
