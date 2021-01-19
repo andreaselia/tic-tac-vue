@@ -13,8 +13,6 @@ io.on('connection', (socket) => {
   console.log('a user connected', socket.id)
 
   socket.on('joinLobby', () => {
-    console.log('joinLobby')
-
     players[socket.id] = {
       opponent: unmatchedPlayer,
       turn: 'X',
@@ -33,8 +31,6 @@ io.on('connection', (socket) => {
     if (!players[socket.id].opponent) {
       return
     }
-
-    console.log('startGame')
 
     socket.emit('startGame', {
       turn: players[socket.id].turn
@@ -69,6 +65,8 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
+    console.log('a user disconnected')
+
     delete players[socket.id]
   })
 })
