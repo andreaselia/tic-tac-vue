@@ -1,15 +1,22 @@
 <template>
-  <div class="bg-white p-6 text-center rounded-3xl shadow-xl sm:p-12">
+  <Card>
     <h1 class="font-bold text-2xl">Waiting for an opponent</h1>
-    <button class="mt-5 bg-indigo-500 text-white rounded-full font-semibold px-8 py-3" @click="leaveLobby">Leave lobby</button>
-  </div>
+    <Button @click="leaveLobby">Leave lobby</Button>
+  </Card>
 </template>
 
 <script>
 import { inject } from 'vue'
 import { useStore } from 'vuex'
 
+import Card from './Card.vue'
+import Button from './Button.vue'
+
 export default {
+  components: {
+    Card,
+    Button
+  },
   setup () {
     const socket = inject('socket')
     const store = useStore()

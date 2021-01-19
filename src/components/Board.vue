@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-6 text-center rounded-3xl shadow-xl sm:p-12">
+  <Card>
     <TurnIndicator />
 
     <div class="mt-5 grid grid-cols-3 gap-5">
@@ -10,17 +10,19 @@
         @click="markCell(index)"
       />
     </div>
-  </div>
+  </Card>
 </template>
 
 <script>
+import { useBoard } from '../composables/useBoard'
+
+import Card from './Card.vue'
 import TurnIndicator from './TurnIndicator.vue'
 import Cell from './Cell.vue'
 
-import { useBoard } from '../composables/useBoard'
-
 export default {
   components: {
+    Card,
     TurnIndicator,
     Cell
   },

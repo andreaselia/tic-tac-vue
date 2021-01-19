@@ -1,6 +1,6 @@
 <template>
   <button
-    class="bg-gray-100 w-12 h-12 rounded-lg"
+    class="bg-gray-100 w-12 h-12 rounded-lg focus:outline-none"
     :disabled="winner || value || turn !== me"
   >
     {{ value }}
