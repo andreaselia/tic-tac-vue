@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
-const PORT = process.env.SOCKET_PORT || 1992
+const PORT = process.env.PORT || 1992
 let players = {}
 let unmatchedPlayer = null
 
