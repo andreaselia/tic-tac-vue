@@ -1,32 +1,28 @@
 <template>
   <div>
       <h1>Welcome to Tic Tac Vue</h1>
-      <button>Join lobby</button>
+      <button @click="joinLobby">Join lobby</button>
   </div>
 </template>
 
 <script>
-import { ref, inject } from 'vue'
+import { inject } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
-  setup() {
+  setup () {
     const socket = inject('socket')
+    const store = useStore()
+
+    function joinLobby() {
+      socket.emit('joinLobby')
+
+      store.commit('app/setView', 'lobby')
+    }
 
     return {
-      ...foo(socket)
+      joinLobby
     }
-  }
-}
-
-function foo(socket) {
-  const bar = ref('')
-
-  socket.on('foo', (value) => {
-    bar.value = value
-  })
-
-  return {
-    bar
   }
 }
 </script>

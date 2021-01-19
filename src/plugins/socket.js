@@ -1,8 +1,8 @@
-import { io } from 'socket.io-client'
+import io from 'socket.io-client'
 
 export default {
-  install: (app, options) => {
-    const socket = io('http://localhost:1992', options)
+  install: (app, { connection, options }) => {
+    const socket = io(connection, options)
 
     app.config.globalProperties.$socket = socket
 

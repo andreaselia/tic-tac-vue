@@ -5,9 +5,17 @@ const state = {
 
 const getters = {}
 
-const actions = {}
+const actions = {
+  setView (context, view) {
+    context.commit('setView', view)
+  }
+}
 
-const mutations = {}
+const mutations = {
+  setView (state, view) {
+    state.view = view
+  }
+}
 
 export default {
   namespaced: true,
