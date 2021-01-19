@@ -6,5 +6,7 @@ import './index.css'
 
 createApp(App)
   .use(store)
-  .use(socketPlugin)
+  .use(socketPlugin, {
+    connection: window.location.host
+  })
   .mount('#app')
