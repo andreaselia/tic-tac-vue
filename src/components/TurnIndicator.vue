@@ -7,19 +7,23 @@
     <h1 class="text-2xl font-bold" v-if="winner">{{ winner }} wins</h1>
     <h1 class="text-2xl font-bold" v-else>{{ player }}'s turn</h1>
 
-    <Button @click="playAgain">Play again</Button>
+    <Button @click="playAgain" v-if="winner">Play again</Button>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 import { useStore } from 'vuex'
 
 import Button from './Button.vue'
 
 export default {
+  components: {
+    Button
+  },
   setup() {
-    const store = useStore();
+    const socket = inject('socket')
+    const store = useStore()
 
     const winner = computed(() => store.state.game.winner)
     const me = computed(() => store.state.game.me)
