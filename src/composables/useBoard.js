@@ -7,7 +7,6 @@ export const useBoard = () => {
 
   const board = computed(() => store.state.game.board)
   const turn = computed(() => store.state.game.turn)
-  const winner = computed(() => store.state.game.winner)
 
   const markCell = (index) => {
     store.dispatch('game/markCell', { index, turn: turn.value })
@@ -22,7 +21,6 @@ export const useBoard = () => {
   return {
     board,
     turn,
-    winner,
     markCell
   }
 }
